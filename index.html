@@ -487,6 +487,16 @@ body {
   color: var(--accent);
 }
 
+.project-press em a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.project-press em a:hover {
+  color: var(--accent-bright);
+}
+
 /* ── CAROUSEL ── */
 .carousel {
   position: relative;
@@ -865,6 +875,12 @@ body {
             <li>Supervised videographer and photographer for PR leads and supported talent needs</li>
           </ul>
           <div class="project-press">
+            <span>Press</span>
+            <em><a href="https://www.motorsport.com/culture/news/miami-grand-prix-2025-parties-events/10717990/" target="_blank">Motorsport</a></em> &middot;
+            <em><a href="https://www.fastcompany.com/91324586/whatsapp-new-netflix-doc-f1-advertising-entertainment" target="_blank">Fast Company</a></em> &middot;
+            <em><a href="https://www.hollywoodreporter.com/movies/movie-news/formula-one-documentary-the-seat-mercedes-1236202039/" target="_blank">The Hollywood Reporter</a></em>
+          </div>
+          <div class="project-press">
             <span>Agency</span>
             <em>Flux</em>
           </div>
@@ -902,7 +918,7 @@ body {
           </ul>
           <div class="project-press">
             <span>Press</span>
-            <em>The Hollywood Reporter</em>
+            <em><a href="https://www.hollywoodreporter.com/music/music-news/ok-go-damian-kulash-viral-music-videos-michel-gondry-1236181108/" target="_blank">The Hollywood Reporter</a></em>
           </div>
         </div>
       </div>
@@ -953,8 +969,50 @@ body {
             <li>Worked on installation and strike of event production and decor</li>
           </ul>
           <div class="project-press">
+            <span>Press</span>
+            <em><a href="https://thefeaturepresentation.com/neons-the-monkey-red-carpet-premiere-delivers-chills-thrills-and-nonstop-horror/" target="_blank">The Feature Presentation</a></em> &middot;
+            <em><a href="https://www.hollywoodreporter.com/movies/movie-features/the-monkey-star-theo-james-talks-deleted-scenes-1236143086/" target="_blank">The Hollywood Reporter</a></em> &middot;
+            <em><a href="https://www.indiewire.com/news/business/neon-first-look-deal-osgood-perkins-1235123204/" target="_blank">IndieWire</a></em>
+          </div>
+          <div class="project-press">
             <span>Agency</span>
             <em>Flux</em>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- THE MONKEY POP-UP -->
+  <div class="project-card reveal" onclick="toggleProject(this)">
+    <div class="project-header">
+      <div class="project-title-group">
+        <div class="project-title">The Monkey</div>
+        <div class="project-subtitle">Pop-Up — Los Angeles</div>
+      </div>
+      <div class="project-meta">NEON</div>
+      <div class="project-role">Lead Merchandise Manager</div>
+      <div class="project-expand-icon">+</div>
+    </div>
+    <div class="project-details">
+      <div class="carousel" onclick="event.stopPropagation()">
+        <div class="carousel-track">
+          <div class="carousel-placeholder">Photos coming soon</div>
+        </div>
+      </div>
+      <div class="project-details-inner">
+        <div class="project-description">
+          Description coming soon.
+        </div>
+        <div class="project-responsibilities">
+          <h4>Responsibilities</h4>
+          <ul>
+            <li>Details coming soon</li>
+          </ul>
+          <div class="project-press">
+            <span>Press</span>
+            <em><a href="https://bloody-disgusting.com/sponsored/3855704/the-monkey-pop-up-shop/" target="_blank">Bloody Disgusting</a></em> &middot;
+            <em><a href="https://nerdbot.com/2025/02/18/neon-announces-the-monkey-pop-up-shop-in-los-angeles/#gsc.tab=0" target="_blank">NerdBot</a></em>
           </div>
         </div>
       </div>
@@ -1000,7 +1058,9 @@ body {
           </ul>
           <div class="project-press">
             <span>Press</span>
-            <em>The Wall Street Journal</em>
+            <em><a href="https://www.wsj.com/style/fashion/norms-hemorrhoid-cream-3666a4e8" target="_blank">Wall Street Journal</a></em> &middot;
+            <em><a href="https://www.retailtouchpoints.com/features/news-briefs/pop-up-clubhouse-provides-space-to-discuss-a-subject-most-want-to-avoid-hemorrhoids" target="_blank">Retail TouchPoints</a></em> &middot;
+            <em><a href="https://www.trendhunter.com/trends/norms-clubhouse" target="_blank">Trend Hunter</a></em>
           </div>
         </div>
       </div>
@@ -1050,6 +1110,12 @@ body {
             <li>Managed check-in staff including all attendees, talent, and VIPs</li>
             <li>Managed ticket sales for Nosaj Thing performance</li>
           </ul>
+          <div class="project-press">
+            <span>Press</span>
+            <em><a href="https://laist.com/events/flux-festival-2024" target="_blank">LAist</a></em> &middot;
+            <em><a href="https://www.stashmedia.tv/flux-festival-launches-in-los-angeles-celebrating-emerging-filmmakers-and-artists/" target="_blank">Stash</a></em> &middot;
+            <em><a href="https://motionographer.com/news/flux-festival-launches-in-los-angeles-celebrating-emerging-filmmakers-and-artists/" target="_blank">Motionographer</a></em>
+          </div>
         </div>
       </div>
     </div>
@@ -1100,6 +1166,10 @@ body {
           <ul>
             <li>Details coming soon</li>
           </ul>
+          <div class="project-press">
+            <span>Press</span>
+            <em><a href="https://www.thewrap.com/party-report-keanu-reeves-spider-man-spider-verse/" target="_blank">The Wrap</a></em>
+          </div>
         </div>
       </div>
     </div>
@@ -1148,7 +1218,9 @@ body {
           </ul>
           <div class="project-press">
             <span>Press</span>
-            <em>Adweek</em>
+            <em><a href="https://www.adweek.com/convergent-tv/how-the-marketing-campaign-for-neons-body-horror-hit-came-together/" target="_blank">AdWeek</a></em> &middot;
+            <em><a href="https://secretlosangeles.com/dave-franco-alison-brie-together-pop-up/" target="_blank">Secret Los Angeles</a></em> &middot;
+            <em><a href="https://deadline.com/2025/08/together-neon-original-horror-top-ten-indie-film-box-office-1236477352/" target="_blank">Deadline</a></em>
           </div>
         </div>
       </div>
@@ -1204,7 +1276,7 @@ body {
     <div class="project-header">
       <div class="project-title-group">
         <div class="project-title">Pleasure</div>
-        <div class="project-subtitle">World Premiere — Los Angeles</div>
+        <div class="project-subtitle">Premiere — Los Angeles</div>
       </div>
       <div class="project-meta">NEON</div>
       <div class="project-role">Event Coordinator</div>
@@ -1247,7 +1319,7 @@ body {
     <div class="project-header">
       <div class="project-title-group">
         <div class="project-title">Things Will Be Different</div>
-        <div class="project-subtitle">World Premiere — Los Angeles</div>
+        <div class="project-subtitle">Premiere — Los Angeles</div>
       </div>
       <div class="project-meta">NEON</div>
       <div class="project-role">Event Coordinator</div>
@@ -1313,6 +1385,79 @@ body {
             <li>Worked on installation and strike of event production and decor</li>
             <li>Installed signage, decor, and all client logistical needs</li>
           </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- I LOVE MY DAD -->
+  <div class="project-card reveal" onclick="toggleProject(this)">
+    <div class="project-header">
+      <div class="project-title-group">
+        <div class="project-title">I Love My Dad</div>
+        <div class="project-subtitle">Premiere</div>
+      </div>
+      <div class="project-meta">Magnolia Pictures</div>
+      <div class="project-role">Event Coordinator</div>
+      <div class="project-expand-icon">+</div>
+    </div>
+    <div class="project-details">
+      <div class="carousel" onclick="event.stopPropagation()">
+        <div class="carousel-track">
+          <div class="carousel-placeholder">Photos coming soon</div>
+        </div>
+      </div>
+      <div class="project-details-inner">
+        <div class="project-description">
+          Description coming soon.
+        </div>
+        <div class="project-responsibilities">
+          <h4>Responsibilities</h4>
+          <ul>
+            <li>Details coming soon</li>
+          </ul>
+          <div class="project-press">
+            <span>Press</span>
+            <em><a href="https://variety.com/2022/scene/news/james-morosini-i-love-my-dad-patton-oswalt-1235334794/" target="_blank">Variety</a></em> &middot;
+            <em><a href="https://www.hollywoodreporter.com/movies/movie-news/i-love-my-dad-cast-james-morosini-premiere-1235193799/" target="_blank">The Hollywood Reporter</a></em> &middot;
+            <em><a href="https://people.com/celebrity/star-tracks-friday-august-5-2022/" target="_blank">People</a></em> &middot;
+            <em><a href="https://hollywoodlife.com/pics/hottest-celebrity-pics-this-week-of-aug-8-14-billie-eilish-more/premiere-of-i-love-my-dad/" target="_blank">Hollywood Life</a></em>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRESENCE -->
+  <div class="project-card reveal" onclick="toggleProject(this)">
+    <div class="project-header">
+      <div class="project-title-group">
+        <div class="project-title">Presence</div>
+        <div class="project-subtitle">Creators Event — Los Angeles</div>
+      </div>
+      <div class="project-meta">NEON</div>
+      <div class="project-role">Event Coordinator</div>
+      <div class="project-expand-icon">+</div>
+    </div>
+    <div class="project-details">
+      <div class="carousel" onclick="event.stopPropagation()">
+        <div class="carousel-track">
+          <div class="carousel-placeholder">Photos coming soon</div>
+        </div>
+      </div>
+      <div class="project-details-inner">
+        <div class="project-description">
+          Description coming soon.
+        </div>
+        <div class="project-responsibilities">
+          <h4>Responsibilities</h4>
+          <ul>
+            <li>Details coming soon</li>
+          </ul>
+          <div class="project-press">
+            <span>Press</span>
+            <em><a href="https://variety.com/2025/film/features/presence-special-screening-haunted-house-experience-1236284114/" target="_blank">Variety</a></em>
+          </div>
         </div>
       </div>
     </div>
