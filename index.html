@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Graham Wells — Events Manager</title>
+<meta name="description" content="Graham Wells is an events manager based in New York City, producing world premieres, pop-ups, and immersive experiences for brands like NEON, WhatsApp, Mercedes F1, Soho House, and more.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --bg-card: #111111;
+  --bg-card-hover: #161616;
+  --text: #e8e4df;
+  --text-muted: #8a8580;
+  --text-dim: #5a5550;
+  --accent: #c9b99a;
+  --accent-bright: #e0d4b8;
+  --border: #222;
+  --border-light: #2a2a2a;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'Outfit', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-light) var(--bg);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 clamp(24px, 5vw, 80px) clamp(40px, 8vh, 80px);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 20%, rgba(201,185,154,0.04) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 80% at 20% 80%, rgba(201,185,154,0.03) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.hero-top {
+  position: absolute;
+  top: clamp(24px, 4vh, 48px);
+  left: clamp(24px, 5vw, 80px);
+  right: clamp(24px, 5vw, 80px);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.hero-label {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.hero-contact {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hero-contact a {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  transition: color 0.3s;
+}
+
+.hero-contact a:hover {
+  color: var(--accent);
+}
+
+.hero-name {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(56px, 10vw, 160px);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 20px;
+  opacity: 0;
+  transform: translateY(40px);
+  animation: fadeUp 1s ease-out 0.2s forwards;
+}
+
+.hero-title {
+  font-family: var(--sans);
+  font-size: clamp(12px, 1.5vw, 16px);
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.8s ease-out 0.5s forwards;
+}
+
+.hero-location {
+  font-size: 14px;
+  color: var(--text-dim);
+  letter-spacing: 0.1em;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.8s ease-out 0.65s forwards;
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: clamp(24px, 4vh, 40px);
+  right: clamp(24px, 5vw, 80px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  animation: fadeIn 1s ease-out 1.2s forwards;
+}
+
+.hero-scroll span {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  writing-mode: vertical-rl;
+}
+
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--accent), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+/* ── CLIENTS BAR ── */
+.clients-bar {
+  padding: 40px clamp(24px, 5vw, 80px);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: clamp(24px, 4vw, 60px);
+  flex-wrap: wrap;
+}
+
+.clients-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+.clients-list {
+  display: flex;
+  gap: clamp(28px, 4vw, 56px);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.client-logo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0.45;
+  transition: opacity 0.3s;
+  white-space: nowrap;
+}
+
+.client-logo:hover {
+  opacity: 0.85;
+}
+
+.client-logo svg {
+  height: 22px;
+  width: auto;
+  fill: var(--text);
+}
+
+.client-logo-text {
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.client-logo-text.serif {
+  font-family: var(--serif);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  font-size: 19px;
+}
+
+.client-logo-text.bold {
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+/* ── SECTION HEADER ── */
+.section-header {
+  padding: clamp(60px, 10vh, 120px) clamp(24px, 5vw, 80px) clamp(30px, 5vh, 60px);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.section-header h2 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(32px, 5vw, 64px);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.section-header .count {
+  font-size: 13px;
+  color: var(--text-dim);
+  letter-spacing: 0.15em;
+  padding-bottom: 8px;
+}
+
+/* ── PROJECT CARDS ── */
+.projects {
+  padding: 0 clamp(24px, 5vw, 80px) clamp(60px, 10vh, 120px);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.project-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  transition: background 0.4s, border-color 0.4s;
+  cursor: pointer;
+}
+
+.project-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-light);
+}
+
+.project-card:hover .project-expand-icon {
+  transform: rotate(45deg);
+  color: var(--accent);
+}
+
+.project-card:hover .project-title {
+  color: var(--accent-bright);
+}
+
+.project-header {
+  display: grid;
+  grid-template-columns: 1fr auto auto auto;
+  align-items: center;
+  gap: clamp(16px, 3vw, 48px);
+  padding: clamp(20px, 3vh, 32px) clamp(20px, 3vw, 40px);
+}
+
+.project-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.project-title {
+  font-family: var(--serif);
+  font-size: clamp(22px, 3vw, 36px);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  transition: color 0.3s;
+  line-height: 1.1;
+}
+
+.project-subtitle {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.project-meta {
+  font-size: 13px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.project-role {
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.project-expand-icon {
+  font-size: 24px;
+  color: var(--text-dim);
+  transition: transform 0.4s, color 0.3s;
+  font-weight: 300;
+}
+
+.project-details {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project-card.open .project-details {
+  max-height: 2000px;
+}
+
+.project-card.open .project-expand-icon {
+  transform: rotate(45deg);
+  color: var(--accent);
+}
+
+.project-details-inner {
+  padding: 0 clamp(20px, 3vw, 40px) clamp(24px, 3vh, 40px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(24px, 3vw, 48px);
+}
+
+.project-description {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text-muted);
+  font-weight: 300;
+}
+
+.project-description em {
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--text);
+  font-size: 17px;
+}
+
+.project-responsibilities {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.project-responsibilities h4 {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.project-responsibilities ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.project-responsibilities li {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  padding-left: 16px;
+  position: relative;
+}
+
+.project-responsibilities li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.project-press {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.project-press span {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.project-press em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--accent);
+}
+
+/* ── CAROUSEL ── */
+.carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 4px;
+  margin: 0 0 clamp(16px, 2vh, 24px);
+  padding: 0 clamp(20px, 3vw, 40px);
+}
+
+.carousel-track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  border-radius: 4px;
+}
+
+.carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-track img,
+.carousel-track .carousel-placeholder {
+  flex: 0 0 100%;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  scroll-snap-align: start;
+  display: block;
+}
+
+.carousel-placeholder {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-dim);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(10, 10, 10, 0.7);
+  border: 1px solid var(--border-light);
+  color: var(--text);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s, border-color 0.3s;
+  z-index: 2;
+  backdrop-filter: blur(8px);
+}
+
+.carousel-btn:hover {
+  background: rgba(10, 10, 10, 0.9);
+  border-color: var(--accent);
+}
+
+.carousel-prev { left: clamp(28px, calc(3vw + 8px), 48px); }
+.carousel-next { right: clamp(28px, calc(3vw + 8px), 48px); }
+
+.carousel-counter {
+  position: absolute;
+  bottom: 12px;
+  right: clamp(28px, calc(3vw + 8px), 48px);
+  background: rgba(10, 10, 10, 0.7);
+  backdrop-filter: blur(8px);
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  z-index: 2;
+}
+
+/* ── FOOTER / CONTACT ── */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: clamp(60px, 10vh, 120px) clamp(24px, 5vw, 80px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: end;
+}
+
+.footer-left h2 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(36px, 5vw, 72px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+
+.footer-left p {
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  max-width: 400px;
+}
+
+.footer-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.footer-right a {
+  font-family: var(--serif);
+  font-size: clamp(18px, 2vw, 24px);
+  color: var(--text);
+  text-decoration: none;
+  transition: color 0.3s;
+  position: relative;
+}
+
+.footer-right a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent);
+  transition: width 0.4s;
+}
+
+.footer-right a:hover {
+  color: var(--accent);
+}
+
+.footer-right a:hover::after {
+  width: 100%;
+}
+
+.footer-bottom {
+  border-top: 1px solid var(--border);
+  padding: 24px clamp(24px, 5vw, 80px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-bottom span {
+  font-size: 11px;
+  color: var(--text-dim);
+  letter-spacing: 0.1em;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .project-header {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .project-meta, .project-role {
+    font-size: 12px;
+  }
+
+  .project-expand-icon {
+    display: none;
+  }
+
+  .project-details-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-right {
+    align-items: flex-start;
+  }
+
+  .hero-contact {
+    display: none;
+  }
+
+  .clients-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .carousel-btn {
+    width: 34px;
+    height: 34px;
+    font-size: 15px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-top">
+    <span class="hero-label">Portfolio</span>
+    <div class="hero-contact">
+      <a href="mailto:grahamwells.co@gmail.com">grahamwells.co@gmail.com</a>
+      <a href="tel:+13105037560">310-503-7560</a>
+    </div>
+  </div>
+
+  <div class="hero-title">Events Manager</div>
+  <h1 class="hero-name">Graham<br>Wells</h1>
+  <div class="hero-location">New York City</div>
+
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- CLIENTS -->
+<div class="clients-bar reveal">
+  <span class="clients-label">Selected Clients</span>
+  <div class="clients-list">
+    <div class="client-logo"><span class="client-logo-text bold">NEON</span></div>
+    <div class="client-logo">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    </div>
+    <div class="client-logo">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0c6.623 0 12 5.377 12 12s-5.377 12-12 12S0 18.623 0 12 5.377 0 12 0zM3.245 17.539A10.357 10.357 0 0012 22.36c3.681 0 6.917-1.924 8.755-4.821L12 14.203zm10.663-6.641l7.267 5.915A10.306 10.306 0 0022.36 12c0-5.577-4.417-10.131-9.94-10.352zm-2.328-9.25C6.057 1.869 1.64 6.423 1.64 12c0 1.737.428 3.374 1.185 4.813l7.267-5.915z"/></svg>
+      <span class="client-logo-text" style="font-size:12px; letter-spacing:0.15em;">AMG F1</span>
+    </div>
+    <div class="client-logo"><span class="client-logo-text serif">Soho House</span></div>
+    <div class="client-logo"><span class="client-logo-text bold">OK Go</span></div>
+    <div class="client-logo"><span class="client-logo-text serif">Norms</span></div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<div class="section-header reveal">
+  <h2>Selected Work</h2>
+  <span class="count">11 Projects</span>
+</div>
+
+<div class="projects">
+
+  <!-- THE SEAT -->
+  <div class="project-card reveal" onclick="toggleProject(this)">
+    <div class="project-header">
+      <div class="project-title-group">
+        <div class="project-title">The Seat</div>
+        <div class="project-subtitle">World Premiere — Miami</div>
+      </div>
+      <div class="project-meta">WhatsApp &times; Mercedes-AMG F1</div>
+      <div class="project-role">Event Operations Manager</div>
+      <div class="project-expand-icon">+</div>
+    </div>
+    <div class="project-details">
+      <div class="carousel" onclick="event.stopPropagation()">
+        <div class="carousel-track">
+          <img src="photos/the-seat/01.jpg" loading="lazy" alt="The Seat premiere">
+          <img src="photos/the-seat/02.jpg" loading="lazy" alt="The Seat premiere">
+          <img src="photos/the-seat/03.jpg" loading="lazy" alt="The Seat premiere">
+          <img src="photos/the-seat/04.jpg" loading="lazy" alt="The Seat premiere">
+          <img src="photos/the-seat/05.jpg" loading="lazy" alt="The Seat premiere">
+          <img src="photos/the-seat/06.jpg" loading="lazy" alt="The Seat premiere">
+          <img src="photos/the-seat/07.jpg" loading="lazy" alt="The Seat premiere">
+          <img src="photos/the-seat/08.jpg" loading="lazy" alt="The Seat premiere">
+          <img src="photos/the-seat/09.jpg" loading="lazy" alt="The Seat premiere">
+          <img src="photos/the-seat/10.jpg" loading="lazy" alt="The Seat premiere">
+          <img src="photos/the-seat/11.jpeg" loading="lazy" alt="The Seat premiere">
+          <img src="photos/the-seat/12.jpg" loading="lazy" alt="The Seat premiere">
+          <img src="photos/the-seat/13.jpeg" loading="lazy" alt="The Seat premiere">
+        </div>
+        <button class="carousel-btn carousel-prev" onclick="carouselNav(this,-1)">&#8249;</button>
+        <button class="carousel-btn carousel-next" onclick="carouselNav(this,1)">&#8250;</button>
+        <div class="carousel-counter">1 / 13</div>
+      </div>
+      <div class="project-details-inner">
+        <div class="project-description">
+          For Miami Grand Prix weekend, Flux produced the world premiere of <em>The Seat</em> — a Netflix documentary from WhatsApp and Mercedes-AMG F1 exploring the pivotal moments that shaped a new era at the Mercedes-AMG F1 Team. Held at the iconic Faena Forum in Miami Beach, the event featured immersive installations, a screening, and a Q&A with the team — including F1 Driver Kimi Antonelli.
+        </div>
+        <div class="project-responsibilities">
+          <h4>Responsibilities</h4>
+          <ul>
+            <li>On-site liaison with Mercedes F1 Team for delivery, install, and deinstall of Kimi Antonelli artifacts and F1 Go Cart placement</li>
+            <li>Vendor liaison for receiving and installing all local vendor deliveries</li>
+            <li>Supervised videographer and photographer for PR leads and supported talent needs</li>
+          </ul>
+          <div class="project-press">
+            <span>Agency</span>
+            <em>Flux</em>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OK GO -->
+  <div class="project-card reveal" onclick="toggleProject(this)">
+    <div class="project-header">
+      <div class="project-title-group">
+        <div class="project-title">OK Go : Love</div>
+        <div class="project-subtitle">World Premiere — Los Angeles &amp; New York City</div>
+      </div>
+      <div class="project-meta">OK Go</div>
+      <div class="project-role">Event Manager</div>
+      <div class="project-expand-icon">+</div>
+    </div>
+    <div class="project-details">
+      <div class="carousel" onclick="event.stopPropagation()">
+        <div class="carousel-track">
+          <div class="carousel-placeholder">Photos coming soon</div>
+        </div>
+      </div>
+      <div class="project-details-inner">
+        <div class="project-description">
+          OK Go, world renowned for their viral music videos, asked Flux to produce the world premiere of their latest video masterpiece <em>Love</em> in cinemas in Los Angeles and New York City. After two sold-out shows and launch on YouTube, Love was nominated for a Grammy for Best Music Video, won the Silver Lion at Cannes Lions, and won Grand Winner at the Clios. The evenings featured an exclusive video retrospective, Q&As with the band and co-directors, and a display of the mirrored suit from the video.
+        </div>
+        <div class="project-responsibilities">
+          <h4>Responsibilities</h4>
+          <ul>
+            <li>Coordinated with venues, vendors, and OK Go talent and management on all aspects of production in LA and NYC</li>
+            <li>Ran the event in both cities</li>
+          </ul>
+          <div class="project-press">
+            <span>Press</span>
+            <em>The Hollywood Reporter</em>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- THE MONKEY PREMIERE -->
+  <div class="project-card reveal" onclick="toggleProject(this)">
+    <div class="project-header">
+      <div class="project-title-group">
+        <div class="project-title">The Monkey</div>
+        <div class="project-subtitle">World Premiere — Los Angeles</div>
+      </div>
+      <div class="project-meta">NEON</div>
+      <div class="project-role">Event Coordinator</div>
+      <div class="project-expand-icon">+</div>
+    </div>
+    <div class="project-details">
+      <div class="carousel" onclick="event.stopPropagation()">
+        <div class="carousel-track">
+          <img src="photos/the-monkey/01.jpg" loading="lazy" alt="The Monkey premiere">
+          <img src="photos/the-monkey/02.jpg" loading="lazy" alt="The Monkey premiere">
+          <img src="photos/the-monkey/03.jpg" loading="lazy" alt="The Monkey premiere">
+          <img src="photos/the-monkey/04.jpg" loading="lazy" alt="The Monkey premiere">
+          <img src="photos/the-monkey/05.jpg" loading="lazy" alt="The Monkey premiere">
+          <img src="photos/the-monkey/06.jpg" loading="lazy" alt="The Monkey premiere">
+          <img src="photos/the-monkey/07.jpg" loading="lazy" alt="The Monkey premiere">
+          <img src="photos/the-monkey/08.jpg" loading="lazy" alt="The Monkey premiere">
+          <img src="photos/the-monkey/09.jpg" loading="lazy" alt="The Monkey premiere">
+          <img src="photos/the-monkey/10.jpg" loading="lazy" alt="The Monkey premiere">
+          <img src="photos/the-monkey/11.jpg" loading="lazy" alt="The Monkey premiere">
+          <img src="photos/the-monkey/12.jpg" loading="lazy" alt="The Monkey premiere">
+        </div>
+        <button class="carousel-btn carousel-prev" onclick="carouselNav(this,-1)">&#8249;</button>
+        <button class="carousel-btn carousel-next" onclick="carouselNav(this,1)">&#8250;</button>
+        <div class="carousel-counter">1 / 12</div>
+      </div>
+      <div class="project-details-inner">
+        <div class="project-description">
+          For the world premiere of NEON's <em>The Monkey</em>, Flux transformed a 1920s Gothic Revival church — with its 205-ft bell tower glowing blood red — into the ultimate horror cinema experience. Guests paid their respects to Uncle Chip before entering the sanctuary, where Blasting Company led a haunting procession of Chopin's funeral march past packed pews. NEON's CMO, dressed as a priest, introduced director Osgood Perkins and cast — Theo James, Elijah Wood, Tatiana Maslany, Sarah Levy, and more.
+        </div>
+        <div class="project-responsibilities">
+          <h4>Responsibilities</h4>
+          <ul>
+            <li>Worked on event welcome logistics, performers, popcorn, and candy giveaways</li>
+            <li>Coordinated on-site event tasks and logistics with team leads</li>
+            <li>Worked on installation and strike of event production and decor</li>
+          </ul>
+          <div class="project-press">
+            <span>Agency</span>
+            <em>Flux</em>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DALILAND -->
+  <div class="project-card reveal" onclick="toggleProject(this)">
+    <div class="project-header">
+      <div class="project-title-group">
+        <div class="project-title">Daliland</div>
+        <div class="project-subtitle">World Premiere — Los Angeles</div>
+      </div>
+      <div class="project-meta">NEON</div>
+      <div class="project-role">Event Coordinator</div>
+      <div class="project-expand-icon">+</div>
+    </div>
+    <div class="project-details">
+      <div class="carousel" onclick="event.stopPropagation()">
+        <div class="carousel-track">
+          <img src="photos/daliland/01.jpg" loading="lazy" alt="Daliland premiere">
+          <img src="photos/daliland/02.jpg" loading="lazy" alt="Daliland premiere">
+          <img src="photos/daliland/03.jpg" loading="lazy" alt="Daliland premiere">
+          <img src="photos/daliland/04.jpg" loading="lazy" alt="Daliland premiere">
+          <img src="photos/daliland/05.jpg" loading="lazy" alt="Daliland premiere">
+          <img src="photos/daliland/06.jpg" loading="lazy" alt="Daliland premiere">
+          <img src="photos/daliland/07.jpg" loading="lazy" alt="Daliland premiere">
+          <img src="photos/daliland/08.jpg" loading="lazy" alt="Daliland premiere">
+          <img src="photos/daliland/09.jpg" loading="lazy" alt="Daliland premiere">
+        </div>
+        <button class="carousel-btn carousel-prev" onclick="carouselNav(this,-1)">&#8249;</button>
+        <button class="carousel-btn carousel-next" onclick="carouselNav(this,1)">&#8250;</button>
+        <div class="carousel-counter">1 / 9</div>
+      </div>
+      <div class="project-details-inner">
+        <div class="project-description">
+          Description coming soon.
+        </div>
+        <div class="project-responsibilities">
+          <h4>Responsibilities</h4>
+          <ul>
+            <li>Details coming soon</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NORMS -->
+  <div class="project-card reveal" onclick="toggleProject(this)">
+    <div class="project-header">
+      <div class="project-title-group">
+        <div class="project-title">Norms Clubhouse</div>
+        <div class="project-subtitle">Pop-Up — New York City</div>
+      </div>
+      <div class="project-meta">Norms</div>
+      <div class="project-role">Event Marketing &amp; Store Manager</div>
+      <div class="project-expand-icon">+</div>
+    </div>
+    <div class="project-details">
+      <div class="carousel" onclick="event.stopPropagation()">
+        <div class="carousel-track">
+          <img src="photos/norms-clubhouse/01.avif" loading="lazy" alt="Norms Clubhouse pop-up">
+          <img src="photos/norms-clubhouse/02.jpg" loading="lazy" alt="Norms Clubhouse pop-up">
+          <img src="photos/norms-clubhouse/03.jpg" loading="lazy" alt="Norms Clubhouse pop-up">
+          <img src="photos/norms-clubhouse/04.jpg" loading="lazy" alt="Norms Clubhouse pop-up">
+          <img src="photos/norms-clubhouse/05.jpg" loading="lazy" alt="Norms Clubhouse pop-up">
+          <img src="photos/norms-clubhouse/06.jpg" loading="lazy" alt="Norms Clubhouse pop-up">
+          <img src="photos/norms-clubhouse/07.jpg" loading="lazy" alt="Norms Clubhouse pop-up">
+        </div>
+        <button class="carousel-btn carousel-prev" onclick="carouselNav(this,-1)">&#8249;</button>
+        <button class="carousel-btn carousel-next" onclick="carouselNav(this,1)">&#8250;</button>
+        <div class="carousel-counter">1 / 7</div>
+      </div>
+      <div class="project-details-inner">
+        <div class="project-description">
+          Timed with Hemorrhoid Awareness Month, the Norms brand launched in late 2025 with a Soho pop-up. Norms uses humor to make the topic less taboo, and the pop-up featured surprises like selectable music in the restroom and unique tongue-in-cheek gifting. Comedian Pete Davidson, an early investor in Norms, participated in the opening event.
+        </div>
+        <div class="project-responsibilities">
+          <h4>Responsibilities</h4>
+          <ul>
+            <li>Worked with founder Josh Katz to execute vision for the Pop-Up</li>
+            <li>Managed day-to-day operations, scheduled staff, interfaced with retail clients, suppliers and vendors</li>
+            <li>Opened and launched the retail store, organized closure and load-out</li>
+          </ul>
+          <div class="project-press">
+            <span>Press</span>
+            <em>The Wall Street Journal</em>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOGETHER -->
+  <div class="project-card reveal" onclick="toggleProject(this)">
+    <div class="project-header">
+      <div class="project-title-group">
+        <div class="project-title">Together</div>
+        <div class="project-subtitle">Pop-Up — Los Angeles</div>
+      </div>
+      <div class="project-meta">NEON</div>
+      <div class="project-role">Lead Merchandise Manager</div>
+      <div class="project-expand-icon">+</div>
+    </div>
+    <div class="project-details">
+      <div class="carousel" onclick="event.stopPropagation()">
+        <div class="carousel-track">
+          <img src="photos/together/01.jpg" loading="lazy" alt="Together pop-up">
+          <img src="photos/together/02.jpg" loading="lazy" alt="Together pop-up">
+          <img src="photos/together/03.jpg" loading="lazy" alt="Together pop-up">
+          <img src="photos/together/04.jpg" loading="lazy" alt="Together pop-up">
+          <img src="photos/together/05.jpg" loading="lazy" alt="Together pop-up">
+          <img src="photos/together/06.jpg" loading="lazy" alt="Together pop-up">
+          <img src="photos/together/07.jpg" loading="lazy" alt="Together pop-up">
+          <img src="photos/together/08.jpg" loading="lazy" alt="Together pop-up">
+          <img src="photos/together/09.jpeg" loading="lazy" alt="Together pop-up">
+          <img src="photos/together/10.jpg" loading="lazy" alt="Together pop-up">
+        </div>
+        <button class="carousel-btn carousel-prev" onclick="carouselNav(this,-1)">&#8249;</button>
+        <button class="carousel-btn carousel-next" onclick="carouselNav(this,1)">&#8250;</button>
+        <div class="carousel-counter">1 / 10</div>
+      </div>
+      <div class="project-details-inner">
+        <div class="project-description">
+          For NEON's horror title <em>Together</em>, starring Dave Franco and Alison Brie, Flux sourced a mysterious venue echoing the film's unsettling tone. Attendees queued for exclusive, one-of-a-kind merch — including Hair Floss, a felt Rat King, and a branded Body Saw — immersed in looping unseen footage and subversive cult messaging woven throughout the space.
+        </div>
+        <div class="project-responsibilities">
+          <h4>Responsibilities</h4>
+          <ul>
+            <li>Managed, catalogued and merchandised limited-edition items for the film's launch week</li>
+            <li>Managed roles and on-site flow of six-person sales team</li>
+            <li>Trained staff on POS system and ran the store event for the entire day</li>
+            <li>Worked with team leads on install and strike, liaised with assigned vendors</li>
+          </ul>
+          <div class="project-press">
+            <span>Press</span>
+            <em>Adweek</em>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HELL OF A SUMMER -->
+  <div class="project-card reveal" onclick="toggleProject(this)">
+    <div class="project-header">
+      <div class="project-title-group">
+        <div class="project-title">Hell of a Summer</div>
+        <div class="project-subtitle">Creators Event — Los Angeles</div>
+      </div>
+      <div class="project-meta">NEON</div>
+      <div class="project-role">Event Manager</div>
+      <div class="project-expand-icon">+</div>
+    </div>
+    <div class="project-details">
+      <div class="carousel" onclick="event.stopPropagation()">
+        <div class="carousel-track">
+          <img src="photos/hell-of-a-summer/01.jpg" loading="lazy" alt="Hell of a Summer">
+          <img src="photos/hell-of-a-summer/02.jpg" loading="lazy" alt="Hell of a Summer">
+          <img src="photos/hell-of-a-summer/03.jpg" loading="lazy" alt="Hell of a Summer">
+          <img src="photos/hell-of-a-summer/04.jpg" loading="lazy" alt="Hell of a Summer">
+          <img src="photos/hell-of-a-summer/05.jpg" loading="lazy" alt="Hell of a Summer">
+          <img src="photos/hell-of-a-summer/06.jpg" loading="lazy" alt="Hell of a Summer">
+          <img src="photos/hell-of-a-summer/07.jpg" loading="lazy" alt="Hell of a Summer">
+          <img src="photos/hell-of-a-summer/08.jpg" loading="lazy" alt="Hell of a Summer">
+          <img src="photos/hell-of-a-summer/09.jpg" loading="lazy" alt="Hell of a Summer">
+        </div>
+        <button class="carousel-btn carousel-prev" onclick="carouselNav(this,-1)">&#8249;</button>
+        <button class="carousel-btn carousel-next" onclick="carouselNav(this,1)">&#8250;</button>
+        <div class="carousel-counter">1 / 9</div>
+      </div>
+      <div class="project-details-inner">
+        <div class="project-description">
+          To launch <em>Hell of a Summer</em>, the comedy-horror film by Finn Wolfhard and Billy Bryk, NEON invited influencers to a real summer camp transformed into the world of the film. Camp signage was fully rebranded to match the fictional setting. Guests moved through curated activations — s'mores by the fire, live music, themed photo booths, custom food and drinks — before gathering inside the lodge for the screening.
+        </div>
+        <div class="project-responsibilities">
+          <h4>Responsibilities</h4>
+          <ul>
+            <li>Liaised with vendors on installation of signage, rented props and furniture</li>
+            <li>Worked on guest gift boxes</li>
+            <li>Coordinated on-site event tasks and logistics with team leads</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLUX FESTIVAL -->
+  <div class="project-card reveal" onclick="toggleProject(this)">
+    <div class="project-header">
+      <div class="project-title-group">
+        <div class="project-title">Flux Festival</div>
+        <div class="project-subtitle">Festival — Los Angeles</div>
+      </div>
+      <div class="project-meta">Flux</div>
+      <div class="project-role">Event Coordinator</div>
+      <div class="project-expand-icon">+</div>
+    </div>
+    <div class="project-details">
+      <div class="carousel" onclick="event.stopPropagation()">
+        <div class="carousel-track">
+          <img src="photos/flux-festival/01.jpg" loading="lazy" alt="Flux Festival">
+          <img src="photos/flux-festival/02.jpg" loading="lazy" alt="Flux Festival">
+          <img src="photos/flux-festival/03.jpg" loading="lazy" alt="Flux Festival">
+          <img src="photos/flux-festival/04.jpg" loading="lazy" alt="Flux Festival">
+          <img src="photos/flux-festival/05.jpg" loading="lazy" alt="Flux Festival">
+          <img src="photos/flux-festival/06.jpg" loading="lazy" alt="Flux Festival">
+          <img src="photos/flux-festival/07.jpg" loading="lazy" alt="Flux Festival">
+          <img src="photos/flux-festival/08.jpg" loading="lazy" alt="Flux Festival">
+          <img src="photos/flux-festival/09.jpg" loading="lazy" alt="Flux Festival">
+          <img src="photos/flux-festival/10.jpg" loading="lazy" alt="Flux Festival">
+          <img src="photos/flux-festival/11.jpg" loading="lazy" alt="Flux Festival">
+          <img src="photos/flux-festival/12.jpg" loading="lazy" alt="Flux Festival">
+          <img src="photos/flux-festival/13.jpg" loading="lazy" alt="Flux Festival">
+          <img src="photos/flux-festival/14.jpg" loading="lazy" alt="Flux Festival">
+        </div>
+        <button class="carousel-btn carousel-prev" onclick="carouselNav(this,-1)">&#8249;</button>
+        <button class="carousel-btn carousel-next" onclick="carouselNav(this,1)">&#8250;</button>
+        <div class="carousel-counter">1 / 14</div>
+      </div>
+      <div class="project-details-inner">
+        <div class="project-description">
+          The inaugural Flux Festival showcased bold innovations in moving image and sound by artists experimenting with emerging tools and technologies. Presented in collaboration with AI for Media &amp; Storytelling (AIMS) from USC's School of Cinematic Arts, the festival featured screenings, talks, sensory exhibits, workshops, and performances. The main day concluded with live AV performances from Nosaj Thing, Jake Oleson, and Kevin Peter He that drew 800 people.
+        </div>
+        <div class="project-responsibilities">
+          <h4>Responsibilities</h4>
+          <ul>
+            <li>Managed check-in staff including all attendees, talent, and VIPs</li>
+            <li>Managed ticket sales for Nosaj Thing performance</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PLEASURE -->
+  <div class="project-card reveal" onclick="toggleProject(this)">
+    <div class="project-header">
+      <div class="project-title-group">
+        <div class="project-title">Pleasure</div>
+        <div class="project-subtitle">World Premiere — Los Angeles</div>
+      </div>
+      <div class="project-meta">NEON</div>
+      <div class="project-role">Event Coordinator</div>
+      <div class="project-expand-icon">+</div>
+    </div>
+    <div class="project-details">
+      <div class="carousel" onclick="event.stopPropagation()">
+        <div class="carousel-track">
+          <img src="photos/pleasure/01.jpg" loading="lazy" alt="Pleasure premiere">
+          <img src="photos/pleasure/02.jpg" loading="lazy" alt="Pleasure premiere">
+          <img src="photos/pleasure/03.jpg" loading="lazy" alt="Pleasure premiere">
+          <img src="photos/pleasure/04.jpg" loading="lazy" alt="Pleasure premiere">
+          <img src="photos/pleasure/05.jpg" loading="lazy" alt="Pleasure premiere">
+          <img src="photos/pleasure/06.jpg" loading="lazy" alt="Pleasure premiere">
+          <img src="photos/pleasure/07.jpg" loading="lazy" alt="Pleasure premiere">
+          <img src="photos/pleasure/08.jpg" loading="lazy" alt="Pleasure premiere">
+          <img src="photos/pleasure/09.jpg" loading="lazy" alt="Pleasure premiere">
+          <img src="photos/pleasure/10.jpg" loading="lazy" alt="Pleasure premiere">
+        </div>
+        <button class="carousel-btn carousel-prev" onclick="carouselNav(this,-1)">&#8249;</button>
+        <button class="carousel-btn carousel-next" onclick="carouselNav(this,1)">&#8250;</button>
+        <div class="carousel-counter">1 / 10</div>
+      </div>
+      <div class="project-details-inner">
+        <div class="project-description">
+          Description coming soon.
+        </div>
+        <div class="project-responsibilities">
+          <h4>Responsibilities</h4>
+          <ul>
+            <li>Details coming soon</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- THINGS WILL BE DIFFERENT -->
+  <div class="project-card reveal" onclick="toggleProject(this)">
+    <div class="project-header">
+      <div class="project-title-group">
+        <div class="project-title">Things Will Be Different</div>
+        <div class="project-subtitle">World Premiere — Los Angeles</div>
+      </div>
+      <div class="project-meta">NEON</div>
+      <div class="project-role">Event Coordinator</div>
+      <div class="project-expand-icon">+</div>
+    </div>
+    <div class="project-details">
+      <div class="carousel" onclick="event.stopPropagation()">
+        <div class="carousel-track">
+          <img src="photos/things-will-be-different/01.jpg" loading="lazy" alt="Things Will Be Different premiere">
+          <img src="photos/things-will-be-different/02.jpg" loading="lazy" alt="Things Will Be Different premiere">
+          <img src="photos/things-will-be-different/03.jpg" loading="lazy" alt="Things Will Be Different premiere">
+          <img src="photos/things-will-be-different/04.jpg" loading="lazy" alt="Things Will Be Different premiere">
+          <img src="photos/things-will-be-different/05.jpg" loading="lazy" alt="Things Will Be Different premiere">
+          <img src="photos/things-will-be-different/06.jpg" loading="lazy" alt="Things Will Be Different premiere">
+          <img src="photos/things-will-be-different/07.jpg" loading="lazy" alt="Things Will Be Different premiere">
+          <img src="photos/things-will-be-different/08.jpg" loading="lazy" alt="Things Will Be Different premiere">
+        </div>
+        <button class="carousel-btn carousel-prev" onclick="carouselNav(this,-1)">&#8249;</button>
+        <button class="carousel-btn carousel-next" onclick="carouselNav(this,1)">&#8250;</button>
+        <div class="carousel-counter">1 / 8</div>
+      </div>
+      <div class="project-details-inner">
+        <div class="project-description">
+          Description coming soon.
+        </div>
+        <div class="project-responsibilities">
+          <h4>Responsibilities</h4>
+          <ul>
+            <li>Details coming soon</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WILD WEST -->
+  <div class="project-card reveal" onclick="toggleProject(this)">
+    <div class="project-header">
+      <div class="project-title-group">
+        <div class="project-title">Wild West Ghost Town</div>
+        <div class="project-subtitle">Event — Malibu / Los Angeles</div>
+      </div>
+      <div class="project-meta">Soho House</div>
+      <div class="project-role">Event Coordinator</div>
+      <div class="project-expand-icon">+</div>
+    </div>
+    <div class="project-details">
+      <div class="carousel" onclick="event.stopPropagation()">
+        <div class="carousel-track">
+          <img src="photos/wild-west-ghost-town/01.avif" loading="lazy" alt="Wild West Ghost Town">
+        </div>
+        <button class="carousel-btn carousel-prev" onclick="carouselNav(this,-1)">&#8249;</button>
+        <button class="carousel-btn carousel-next" onclick="carouselNav(this,1)">&#8250;</button>
+        <div class="carousel-counter">1 / 1</div>
+      </div>
+      <div class="project-details-inner">
+        <div class="project-description">
+          Soho House asked Flux to realize their Wild West Ghost Town Saloon concept for the 2024 Halloween event at Little Beach House Malibu. For the one time a year when they allow members and guests to take photos, the goal was to transform the club with highly Instagrammable moments evoking the Wild West.
+        </div>
+        <div class="project-responsibilities">
+          <h4>Responsibilities</h4>
+          <ul>
+            <li>Worked on installation and strike of event production and decor</li>
+            <li>Installed signage, decor, and all client logistical needs</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="footer reveal">
+  <div class="footer-left">
+    <h2>Let's Work<br>Together</h2>
+    <p>Available for event management, production coordination, and experiential marketing projects in New York City and beyond.</p>
+  </div>
+  <div class="footer-right">
+    <a href="mailto:grahamwells.co@gmail.com">grahamwells.co@gmail.com</a>
+    <a href="tel:+13105037560">310-503-7560</a>
+  </div>
+</footer>
+
+<div class="footer-bottom">
+  <span>&copy; 2026 Graham Wells</span>
+  <span>New York City</span>
+</div>
+
+<script>
+function toggleProject(card) {
+  const wasOpen = card.classList.contains('open');
+  document.querySelectorAll('.project-card.open').forEach(c => c.classList.remove('open'));
+  if (!wasOpen) card.classList.add('open');
+}
+
+// Carousel navigation
+function carouselNav(btn, dir) {
+  const carousel = btn.closest('.carousel');
+  const track = carousel.querySelector('.carousel-track');
+  const items = track.querySelectorAll('img, .carousel-placeholder');
+  const w = track.clientWidth;
+  const currentIndex = Math.round(track.scrollLeft / w);
+  let next = currentIndex + dir;
+  if (next < 0) next = items.length - 1;
+  if (next >= items.length) next = 0;
+  track.scrollTo({ left: next * w, behavior: 'smooth' });
+}
+
+// Update carousel counters on scroll
+document.querySelectorAll('.carousel-track').forEach(track => {
+  track.addEventListener('scroll', () => {
+    const carousel = track.closest('.carousel');
+    const counter = carousel.querySelector('.carousel-counter');
+    if (!counter) return;
+    const items = track.querySelectorAll('img, .carousel-placeholder');
+    const index = Math.round(track.scrollLeft / track.clientWidth) + 1;
+    counter.textContent = index + ' / ' + items.length;
+  });
+});
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
