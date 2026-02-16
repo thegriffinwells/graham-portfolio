@@ -535,6 +535,40 @@ body {
   z-index: 2;
 }
 
+/* ── VIEW MORE BUTTON ── */
+.more-projects-toggle {
+  display: flex;
+  justify-content: center;
+  padding: 32px clamp(24px, 5vw, 80px);
+}
+
+.more-projects-toggle span {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 12px 32px;
+  border: 1px solid var(--border-light);
+  border-radius: 4px;
+  transition: color 0.3s, border-color 0.3s;
+}
+
+.more-projects-toggle span:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.more-projects {
+  display: none;
+}
+
+.more-projects.visible {
+  display: flex;
+}
+
 /* ── FOOTER / CONTACT ── */
 .footer {
   border-top: 1px solid var(--border);
@@ -870,48 +904,6 @@ body {
     </div>
   </div>
 
-  <!-- DALILAND -->
-  <div class="project-card reveal" onclick="toggleProject(this)">
-    <div class="project-header">
-      <div class="project-title-group">
-        <div class="project-title">Daliland</div>
-        <div class="project-subtitle">World Premiere — Los Angeles</div>
-      </div>
-      <div class="project-meta">NEON</div>
-      <div class="project-role">Event Coordinator</div>
-      <div class="project-expand-icon">+</div>
-    </div>
-    <div class="project-details">
-      <div class="carousel" onclick="event.stopPropagation()">
-        <div class="carousel-track">
-          <img src="photos/daliland/01.jpg" loading="lazy" alt="Daliland premiere">
-          <img src="photos/daliland/02.jpg" loading="lazy" alt="Daliland premiere">
-          <img src="photos/daliland/03.jpg" loading="lazy" alt="Daliland premiere">
-          <img src="photos/daliland/04.jpg" loading="lazy" alt="Daliland premiere">
-          <img src="photos/daliland/05.jpg" loading="lazy" alt="Daliland premiere">
-          <img src="photos/daliland/06.jpg" loading="lazy" alt="Daliland premiere">
-          <img src="photos/daliland/07.jpg" loading="lazy" alt="Daliland premiere">
-          <img src="photos/daliland/08.jpg" loading="lazy" alt="Daliland premiere">
-          <img src="photos/daliland/09.jpg" loading="lazy" alt="Daliland premiere">
-        </div>
-        <button class="carousel-btn carousel-prev" onclick="carouselNav(this,-1)">&#8249;</button>
-        <button class="carousel-btn carousel-next" onclick="carouselNav(this,1)">&#8250;</button>
-        <div class="carousel-counter">1 / 9</div>
-      </div>
-      <div class="project-details-inner">
-        <div class="project-description">
-          Description coming soon.
-        </div>
-        <div class="project-responsibilities">
-          <h4>Responsibilities</h4>
-          <ul>
-            <li>Details coming soon</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- NORMS -->
   <div class="project-card reveal" onclick="toggleProject(this)">
     <div class="project-header">
@@ -953,6 +945,104 @@ body {
             <span>Press</span>
             <em>The Wall Street Journal</em>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLUX FESTIVAL -->
+  <div class="project-card reveal" onclick="toggleProject(this)">
+    <div class="project-header">
+      <div class="project-title-group">
+        <div class="project-title">Flux Festival</div>
+        <div class="project-subtitle">Festival — Los Angeles</div>
+      </div>
+      <div class="project-meta">Flux</div>
+      <div class="project-role">Event Coordinator</div>
+      <div class="project-expand-icon">+</div>
+    </div>
+    <div class="project-details">
+      <div class="carousel" onclick="event.stopPropagation()">
+        <div class="carousel-track">
+          <img src="photos/flux-festival/01.jpg" loading="lazy" alt="Flux Festival">
+          <img src="photos/flux-festival/02.jpg" loading="lazy" alt="Flux Festival">
+          <img src="photos/flux-festival/03.jpg" loading="lazy" alt="Flux Festival">
+          <img src="photos/flux-festival/04.jpg" loading="lazy" alt="Flux Festival">
+          <img src="photos/flux-festival/05.jpg" loading="lazy" alt="Flux Festival">
+          <img src="photos/flux-festival/06.jpg" loading="lazy" alt="Flux Festival">
+          <img src="photos/flux-festival/07.jpg" loading="lazy" alt="Flux Festival">
+          <img src="photos/flux-festival/08.jpg" loading="lazy" alt="Flux Festival">
+          <img src="photos/flux-festival/09.jpg" loading="lazy" alt="Flux Festival">
+          <img src="photos/flux-festival/10.jpg" loading="lazy" alt="Flux Festival">
+          <img src="photos/flux-festival/11.jpg" loading="lazy" alt="Flux Festival">
+          <img src="photos/flux-festival/12.jpg" loading="lazy" alt="Flux Festival">
+          <img src="photos/flux-festival/13.jpg" loading="lazy" alt="Flux Festival">
+          <img src="photos/flux-festival/14.jpg" loading="lazy" alt="Flux Festival">
+        </div>
+        <button class="carousel-btn carousel-prev" onclick="carouselNav(this,-1)">&#8249;</button>
+        <button class="carousel-btn carousel-next" onclick="carouselNav(this,1)">&#8250;</button>
+        <div class="carousel-counter">1 / 14</div>
+      </div>
+      <div class="project-details-inner">
+        <div class="project-description">
+          The inaugural Flux Festival showcased bold innovations in moving image and sound by artists experimenting with emerging tools and technologies. Presented in collaboration with AI for Media &amp; Storytelling (AIMS) from USC's School of Cinematic Arts, the festival featured screenings, talks, sensory exhibits, workshops, and performances. The main day concluded with live AV performances from Nosaj Thing, Jake Oleson, and Kevin Peter He that drew 800 people.
+        </div>
+        <div class="project-responsibilities">
+          <h4>Responsibilities</h4>
+          <ul>
+            <li>Managed check-in staff including all attendees, talent, and VIPs</li>
+            <li>Managed ticket sales for Nosaj Thing performance</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="more-projects-toggle" onclick="toggleMoreProjects(this)">
+  <span>View More Projects</span>
+</div>
+
+<div class="projects more-projects" id="more-projects">
+
+  <!-- DALILAND -->
+  <div class="project-card reveal" onclick="toggleProject(this)">
+    <div class="project-header">
+      <div class="project-title-group">
+        <div class="project-title">Daliland</div>
+        <div class="project-subtitle">World Premiere — Los Angeles</div>
+      </div>
+      <div class="project-meta">NEON</div>
+      <div class="project-role">Event Coordinator</div>
+      <div class="project-expand-icon">+</div>
+    </div>
+    <div class="project-details">
+      <div class="carousel" onclick="event.stopPropagation()">
+        <div class="carousel-track">
+          <img src="photos/daliland/01.jpg" loading="lazy" alt="Daliland premiere">
+          <img src="photos/daliland/02.jpg" loading="lazy" alt="Daliland premiere">
+          <img src="photos/daliland/03.jpg" loading="lazy" alt="Daliland premiere">
+          <img src="photos/daliland/04.jpg" loading="lazy" alt="Daliland premiere">
+          <img src="photos/daliland/05.jpg" loading="lazy" alt="Daliland premiere">
+          <img src="photos/daliland/06.jpg" loading="lazy" alt="Daliland premiere">
+          <img src="photos/daliland/07.jpg" loading="lazy" alt="Daliland premiere">
+          <img src="photos/daliland/08.jpg" loading="lazy" alt="Daliland premiere">
+          <img src="photos/daliland/09.jpg" loading="lazy" alt="Daliland premiere">
+        </div>
+        <button class="carousel-btn carousel-prev" onclick="carouselNav(this,-1)">&#8249;</button>
+        <button class="carousel-btn carousel-next" onclick="carouselNav(this,1)">&#8250;</button>
+        <div class="carousel-counter">1 / 9</div>
+      </div>
+      <div class="project-details-inner">
+        <div class="project-description">
+          Description coming soon.
+        </div>
+        <div class="project-responsibilities">
+          <h4>Responsibilities</h4>
+          <ul>
+            <li>Details coming soon</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -1046,54 +1136,6 @@ body {
             <li>Liaised with vendors on installation of signage, rented props and furniture</li>
             <li>Worked on guest gift boxes</li>
             <li>Coordinated on-site event tasks and logistics with team leads</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- FLUX FESTIVAL -->
-  <div class="project-card reveal" onclick="toggleProject(this)">
-    <div class="project-header">
-      <div class="project-title-group">
-        <div class="project-title">Flux Festival</div>
-        <div class="project-subtitle">Festival — Los Angeles</div>
-      </div>
-      <div class="project-meta">Flux</div>
-      <div class="project-role">Event Coordinator</div>
-      <div class="project-expand-icon">+</div>
-    </div>
-    <div class="project-details">
-      <div class="carousel" onclick="event.stopPropagation()">
-        <div class="carousel-track">
-          <img src="photos/flux-festival/01.jpg" loading="lazy" alt="Flux Festival">
-          <img src="photos/flux-festival/02.jpg" loading="lazy" alt="Flux Festival">
-          <img src="photos/flux-festival/03.jpg" loading="lazy" alt="Flux Festival">
-          <img src="photos/flux-festival/04.jpg" loading="lazy" alt="Flux Festival">
-          <img src="photos/flux-festival/05.jpg" loading="lazy" alt="Flux Festival">
-          <img src="photos/flux-festival/06.jpg" loading="lazy" alt="Flux Festival">
-          <img src="photos/flux-festival/07.jpg" loading="lazy" alt="Flux Festival">
-          <img src="photos/flux-festival/08.jpg" loading="lazy" alt="Flux Festival">
-          <img src="photos/flux-festival/09.jpg" loading="lazy" alt="Flux Festival">
-          <img src="photos/flux-festival/10.jpg" loading="lazy" alt="Flux Festival">
-          <img src="photos/flux-festival/11.jpg" loading="lazy" alt="Flux Festival">
-          <img src="photos/flux-festival/12.jpg" loading="lazy" alt="Flux Festival">
-          <img src="photos/flux-festival/13.jpg" loading="lazy" alt="Flux Festival">
-          <img src="photos/flux-festival/14.jpg" loading="lazy" alt="Flux Festival">
-        </div>
-        <button class="carousel-btn carousel-prev" onclick="carouselNav(this,-1)">&#8249;</button>
-        <button class="carousel-btn carousel-next" onclick="carouselNav(this,1)">&#8250;</button>
-        <div class="carousel-counter">1 / 14</div>
-      </div>
-      <div class="project-details-inner">
-        <div class="project-description">
-          The inaugural Flux Festival showcased bold innovations in moving image and sound by artists experimenting with emerging tools and technologies. Presented in collaboration with AI for Media &amp; Storytelling (AIMS) from USC's School of Cinematic Arts, the festival featured screenings, talks, sensory exhibits, workshops, and performances. The main day concluded with live AV performances from Nosaj Thing, Jake Oleson, and Kevin Peter He that drew 800 people.
-        </div>
-        <div class="project-responsibilities">
-          <h4>Responsibilities</h4>
-          <ul>
-            <li>Managed check-in staff including all attendees, talent, and VIPs</li>
-            <li>Managed ticket sales for Nosaj Thing performance</li>
           </ul>
         </div>
       </div>
@@ -1244,6 +1286,17 @@ function toggleProject(card) {
   const wasOpen = card.classList.contains('open');
   document.querySelectorAll('.project-card.open').forEach(c => c.classList.remove('open'));
   if (!wasOpen) card.classList.add('open');
+}
+
+// View more projects toggle
+function toggleMoreProjects(btn) {
+  const section = document.getElementById('more-projects');
+  const isVisible = section.classList.contains('visible');
+  section.classList.toggle('visible');
+  btn.querySelector('span').textContent = isVisible ? 'View More Projects' : 'View Less';
+  if (!isVisible) {
+    section.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  }
 }
 
 // Carousel navigation
