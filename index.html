@@ -148,16 +148,9 @@ body {
 .about-photo {
   width: 100%;
   aspect-ratio: 3 / 4;
-  background: var(--bg-card);
+  object-fit: cover;
   border: 1px solid var(--border);
   border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-dim);
-  font-family: var(--sans);
-  font-size: 13px;
-  letter-spacing: 0.1em;
 }
 
 .about-content h2 {
@@ -1557,7 +1550,7 @@ body {
 
 <!-- ABOUT -->
 <section class="about-section reveal" id="about">
-  <div class="about-photo">Photo coming soon</div>
+  <img class="about-photo" src="photos/graham.jpg" alt="Graham Wells">
   <div class="about-content">
     <h2>About Me</h2>
     <p>Graham Wells is an events manager based in New York City, producing world premieres, pop-ups, and immersive experiences for brands like NEON, WhatsApp, Soho House, and more.</p>
