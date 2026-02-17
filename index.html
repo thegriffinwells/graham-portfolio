@@ -1587,6 +1587,7 @@ function toggleProject(card) {
   const wasOpen = card.classList.contains('open');
   document.querySelectorAll('.project-card.open').forEach(c => c.classList.remove('open'));
   if (!wasOpen) card.classList.add('open');
+  saveOpenState();
 }
 
 // View more projects toggle
@@ -1597,6 +1598,32 @@ function toggleMoreProjects(btn) {
   btn.querySelector('span').textContent = isVisible ? 'View More Projects' : 'View Less';
   if (!isVisible) {
     section.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  }
+  sessionStorage.setItem('moreProjectsOpen', !isVisible);
+}
+
+// Save and restore open card state for back navigation
+function saveOpenState() {
+  const cards = document.querySelectorAll('.project-card');
+  const openIndex = Array.from(cards).findIndex(c => c.classList.contains('open'));
+  sessionStorage.setItem('openCardIndex', openIndex);
+}
+
+function restoreOpenState() {
+  const moreOpen = sessionStorage.getItem('moreProjectsOpen') === 'true';
+  if (moreOpen) {
+    const section = document.getElementById('more-projects');
+    const btn = document.querySelector('.more-projects-toggle');
+    section.classList.add('visible');
+    btn.querySelector('span').textContent = 'View Less';
+    section.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  }
+  const openIndex = parseInt(sessionStorage.getItem('openCardIndex'));
+  if (openIndex >= 0) {
+    const cards = document.querySelectorAll('.project-card');
+    if (cards[openIndex]) {
+      cards[openIndex].classList.add('open');
+    }
   }
 }
 
@@ -1635,6 +1662,7 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+restoreOpenState();
 </script>
 
 </body>
