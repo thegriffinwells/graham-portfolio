@@ -292,6 +292,7 @@ body {
   align-items: center;
   justify-content: space-between;
   flex: 1;
+  overflow: visible;
 }
 
 .client-logo {
@@ -301,6 +302,9 @@ body {
   opacity: 0.45;
   transition: opacity 0.3s;
   white-space: nowrap;
+  overflow: visible;
+  min-height: 0;
+  flex-shrink: 0;
 }
 
 .client-logo:hover {
