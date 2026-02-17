@@ -1663,6 +1663,9 @@ const observer = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 restoreOpenState();
+
+// Scroll to top on page load
+window.scrollTo(0, 0);
 </script>
 
 </body>
