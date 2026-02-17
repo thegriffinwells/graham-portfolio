@@ -96,6 +96,14 @@ body {
 .hero-slideshow img:nth-child(4) { animation-delay: 15s; }
 .hero-slideshow img:nth-child(5) { animation-delay: 20s; }
 
+/* Show desktop slideshow by default, hide mobile */
+.hero-slideshow--mobile { display: none; }
+
+@media (max-width: 768px) {
+  .hero-slideshow--desktop { display: none; }
+  .hero-slideshow--mobile { display: block; }
+}
+
 .hero-top {
   position: absolute;
   top: clamp(24px, 4vh, 48px);
@@ -852,12 +860,19 @@ body {
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-slideshow">
+  <div class="hero-slideshow hero-slideshow--desktop">
     <img src="photos/the-seat/01.jpg" alt="">
     <img src="photos/the-monkey/03.jpg" alt="">
     <img src="photos/flux-festival/01.jpg" alt="">
     <img src="photos/hell-of-a-summer/01.jpg" alt="">
     <img src="photos/together/01.jpg" alt="">
+  </div>
+  <div class="hero-slideshow hero-slideshow--mobile">
+    <img src="photos/portfolio-verticals/01.jpg" alt="">
+    <img src="photos/portfolio-verticals/02.jpg" alt="">
+    <img src="photos/portfolio-verticals/03.jpg" alt="">
+    <img src="photos/portfolio-verticals/04.jpg" alt="">
+    <img src="photos/portfolio-verticals/05.jpg" alt="">
   </div>
 
   <div class="hero-top">
