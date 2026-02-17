@@ -1682,6 +1682,7 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     });
   } else {
     restoreOpenState();
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
     window.scrollTo(0, 0);
   }
 })();
