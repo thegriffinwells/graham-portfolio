@@ -828,8 +828,15 @@ body {
   }
 
   .clients-list {
-    gap: 32px 48px;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px 24px;
+    justify-items: center;
+    width: 100%;
+  }
+
+  .clients-list .client-logo:last-child {
+    grid-column: 1 / -1;
   }
 
 
