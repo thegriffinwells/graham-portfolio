@@ -1659,29 +1659,40 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-restoreOpenState();
 
-// Scroll to top on page load (unless returning from a press link)
-if (sessionStorage.getItem('returnFromPress') !== 'true') {
-  window.scrollTo(0, 0);
-}
+// On page load, restore state if returning from press link
+(function() {
+  var returning = sessionStorage.getItem('returnFromPress') === 'true';
+  if (returning) {
+    sessionStorage.removeItem('returnFromPress');
+    // Restore open card and more-projects instantly (no animation)
+    var style = document.createElement('style');
+    style.textContent = '.project-details { transition: none !important; }';
+    document.head.appendChild(style);
+    restoreOpenState();
+    // Make all reveals visible immediately so layout is correct
+    document.querySelectorAll('.reveal').forEach(function(el) { el.classList.add('visible'); });
+    // Restore scroll after layout settles
+    requestAnimationFrame(function() {
+      var pos = parseInt(sessionStorage.getItem('scrollPosition')) || 0;
+      sessionStorage.removeItem('scrollPosition');
+      window.scrollTo(0, pos);
+      // Re-enable transitions
+      requestAnimationFrame(function() { style.remove(); });
+    });
+  } else {
+    restoreOpenState();
+    window.scrollTo(0, 0);
+  }
+})();
 
-// When a press link is clicked, save scroll position and open card state
+// When a press link is clicked, save scroll position
 document.querySelectorAll('.project-press a').forEach(function(link) {
   link.addEventListener('click', function() {
+    saveOpenState();
     sessionStorage.setItem('returnFromPress', 'true');
     sessionStorage.setItem('scrollPosition', window.scrollY);
   });
-});
-
-// Restore scroll position when returning from press link
-document.addEventListener('visibilitychange', function() {
-  if (!document.hidden && sessionStorage.getItem('returnFromPress') === 'true') {
-    sessionStorage.removeItem('returnFromPress');
-    var pos = parseInt(sessionStorage.getItem('scrollPosition')) || 0;
-    sessionStorage.removeItem('scrollPosition');
-    window.scrollTo(0, pos);
-  }
 });
 </script>
 
