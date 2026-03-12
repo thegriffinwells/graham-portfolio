@@ -371,6 +371,88 @@ body {
   padding-bottom: 8px;
 }
 
+/* ── FEATURED SCROLL ── */
+.featured-scroll {
+  padding: 0 clamp(24px, 5vw, 80px) clamp(30px, 4vh, 48px);
+  overflow: hidden;
+}
+
+.featured-scroll-track {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding-bottom: 4px;
+}
+
+.featured-scroll-track::-webkit-scrollbar {
+  display: none;
+}
+
+.featured-scroll-item {
+  flex: 0 0 auto;
+  width: 320px;
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+  scroll-snap-align: start;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.featured-scroll-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.featured-scroll-item img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  display: block;
+  transition: opacity 0.3s;
+}
+
+.featured-scroll-item:hover img {
+  opacity: 0.85;
+}
+
+.featured-scroll-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 40px 16px 14px;
+  background: linear-gradient(to top, rgba(10, 10, 10, 0.9) 0%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.featured-scroll-label strong {
+  font-family: var(--heading);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+.featured-scroll-label span {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+@media (max-width: 768px) {
+  .featured-scroll-item {
+    width: 260px;
+  }
+}
+
 /* ── PROJECT CARDS ── */
 .projects {
   padding: 0 clamp(24px, 5vw, 80px) clamp(60px, 10vh, 120px);
@@ -402,12 +484,37 @@ body {
   color: var(--accent-bright);
 }
 
+.project-thumb {
+  width: 260px;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: 4px;
+  flex-shrink: 0;
+  transition: opacity 0.3s;
+}
+
+.project-card:hover .project-thumb {
+  opacity: 0.85;
+}
+
 .project-header {
   display: grid;
-  grid-template-columns: 1fr auto auto;
+  grid-template-columns: auto 1fr auto auto auto;
   align-items: center;
   gap: clamp(16px, 3vw, 48px);
   padding: clamp(20px, 3vh, 32px) clamp(20px, 3vw, 40px);
+}
+
+.project-header:not(:has(.project-thumb)) {
+  grid-template-columns: 1fr auto auto auto;
+}
+
+.project-card:nth-child(even) .project-header:has(.project-thumb) {
+  grid-template-columns: 1fr auto auto auto;
+}
+
+.project-card:nth-child(even) .project-thumb {
+  order: 5;
 }
 
 .project-title-group {
@@ -803,9 +910,19 @@ body {
 
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
+  .project-thumb {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 4px;
+  }
+
   .project-header {
     grid-template-columns: 1fr;
     gap: 8px;
+  }
+
+  .project-header:not(:has(.project-thumb)) {
+    grid-template-columns: 1fr;
   }
 
   .project-meta, .project-role {
@@ -920,11 +1037,59 @@ body {
   <h2>Featured Work</h2>
 </div>
 
+<div class="featured-scroll reveal">
+  <div class="featured-scroll-track">
+    <div class="featured-scroll-item" onclick="scrollToProject(0)">
+      <img src="photos/the-seat/03.jpg" alt="The Seat" loading="lazy">
+      <div class="featured-scroll-label">
+        <strong>The Seat</strong>
+        <span>WhatsApp &times; Mercedes-AMG F1</span>
+      </div>
+    </div>
+    <div class="featured-scroll-item" onclick="scrollToProject(1)">
+      <img src="photos/the-monkey/09.jpg" alt="The Monkey" loading="lazy">
+      <div class="featured-scroll-label">
+        <strong>The Monkey</strong>
+        <span>NEON</span>
+      </div>
+    </div>
+    <div class="featured-scroll-item" onclick="scrollToProject(2)">
+      <img src="photos/together/01.jpg" alt="Together" loading="lazy">
+      <div class="featured-scroll-label">
+        <strong>Together</strong>
+        <span>NEON</span>
+      </div>
+    </div>
+    <div class="featured-scroll-item" onclick="scrollToProject(3)">
+      <img src="photos/flux-festival/01.jpg" alt="Flux Festival" loading="lazy">
+      <div class="featured-scroll-label">
+        <strong>Flux Festival</strong>
+        <span>Flux</span>
+      </div>
+    </div>
+    <div class="featured-scroll-item" onclick="scrollToProject(4)">
+      <img src="photos/norms-clubhouse/01.avif" alt="Norms Clubhouse" loading="lazy">
+      <div class="featured-scroll-label">
+        <strong>Norms Clubhouse</strong>
+        <span>Norms</span>
+      </div>
+    </div>
+    <div class="featured-scroll-item" onclick="scrollToProject(5)">
+      <img src="photos/hell-of-a-summer/01.jpg" alt="Hell of a Summer" loading="lazy">
+      <div class="featured-scroll-label">
+        <strong>Hell of a Summer</strong>
+        <span>NEON</span>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="projects">
 
   <!-- THE SEAT -->
   <div class="project-card reveal" onclick="toggleProject(this)">
     <div class="project-header">
+      <img class="project-thumb" src="photos/the-seat/01.jpg" alt="The Seat" loading="lazy">
       <div class="project-title-group">
         <div class="project-title">The Seat</div>
         <div class="project-subtitle">World Premiere — Miami</div>
@@ -1019,6 +1184,7 @@ body {
   <!-- THE MONKEY PREMIERE -->
   <div class="project-card reveal" onclick="toggleProject(this)">
     <div class="project-header">
+      <img class="project-thumb" src="photos/the-monkey/09.jpg" alt="The Monkey" loading="lazy">
       <div class="project-title-group">
         <div class="project-title">The Monkey</div>
         <div class="project-subtitle">World Premiere — Los Angeles</div>
@@ -1077,6 +1243,7 @@ body {
   <!-- TOGETHER -->
   <div class="project-card reveal" onclick="toggleProject(this)">
     <div class="project-header">
+      <img class="project-thumb" src="photos/together/01.jpg" alt="Together" loading="lazy">
       <div class="project-title-group">
         <div class="project-title">Together</div>
         <div class="project-subtitle">Pop-Up — Los Angeles</div>
@@ -1128,6 +1295,7 @@ body {
   <!-- FLUX FESTIVAL -->
   <div class="project-card reveal" onclick="toggleProject(this)">
     <div class="project-header">
+      <img class="project-thumb" src="photos/flux-festival/01.jpg" alt="Flux Festival" loading="lazy">
       <div class="project-title-group">
         <div class="project-title">Flux Festival</div>
         <div class="project-subtitle">Festival — Los Angeles</div>
@@ -1185,6 +1353,7 @@ body {
   <!-- NORMS -->
   <div class="project-card reveal" onclick="toggleProject(this)">
     <div class="project-header">
+      <img class="project-thumb" src="photos/norms-clubhouse/01.avif" alt="Norms Clubhouse" loading="lazy">
       <div class="project-title-group">
         <div class="project-title">Norms Clubhouse</div>
         <div class="project-subtitle">Pop-Up — New York City</div>
@@ -1241,43 +1410,11 @@ body {
 
 <div class="projects more-projects" id="more-projects">
 
-  <!-- HAMMER SCREENING SERIES -->
-  <div class="project-card reveal" onclick="toggleProject(this)">
-    <div class="project-header">
-      <div class="project-title-group">
-        <div class="project-title">Hammer Screening Series</div>
-        <div class="project-subtitle">Short film and music video series — Los Angeles</div>
-      </div>
-      <div class="project-meta">Flux</div>
-      <div class="project-expand-icon">+</div>
-    </div>
-    <div class="project-details">
-      <div class="carousel" onclick="event.stopPropagation()">
-        <div class="carousel-track">
-          <div class="carousel-placeholder">Photos coming soon</div>
-        </div>
-      </div>
-      <div class="project-details-inner">
-        <div class="project-description">
-          Description coming soon.
-          <div class="project-press">
-            <span>Role</span>
-            <em>Production and Program Coordinator</em>
-          </div>
-        </div>
-        <div class="project-responsibilities">
-          <h4>Responsibilities</h4>
-          <ul>
-            <li>Details coming soon</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- DALILAND -->
   <div class="project-card reveal" onclick="toggleProject(this)">
     <div class="project-header">
+      <img class="project-thumb" src="photos/daliland/01.jpg" alt="Daliland" loading="lazy">
       <div class="project-title-group">
         <div class="project-title">Daliland</div>
         <div class="project-subtitle">World Premiere — Los Angeles</div>
@@ -1366,6 +1503,7 @@ body {
   <!-- HELL OF A SUMMER -->
   <div class="project-card reveal" onclick="toggleProject(this)">
     <div class="project-header">
+      <img class="project-thumb" src="photos/hell-of-a-summer/01.jpg" alt="Hell of a Summer" loading="lazy">
       <div class="project-title-group">
         <div class="project-title">Hell of a Summer</div>
         <div class="project-subtitle">Creators Event — Los Angeles</div>
@@ -1413,6 +1551,7 @@ body {
   <!-- PLEASURE -->
   <div class="project-card reveal" onclick="toggleProject(this)">
     <div class="project-header">
+      <img class="project-thumb" src="photos/pleasure/01.jpg" alt="Pleasure" loading="lazy">
       <div class="project-title-group">
         <div class="project-title">Pleasure</div>
         <div class="project-subtitle">Premiere — Los Angeles</div>
@@ -1459,6 +1598,7 @@ body {
   <!-- THINGS WILL BE DIFFERENT -->
   <div class="project-card reveal" onclick="toggleProject(this)">
     <div class="project-header">
+      <img class="project-thumb" src="photos/things-will-be-different/01.jpg" alt="Things Will Be Different" loading="lazy">
       <div class="project-title-group">
         <div class="project-title">Things Will Be Different</div>
         <div class="project-subtitle">Premiere — Los Angeles</div>
@@ -1500,122 +1640,8 @@ body {
     </div>
   </div>
 
-  <!-- WILD WEST -->
-  <div class="project-card reveal" onclick="toggleProject(this)">
-    <div class="project-header">
-      <div class="project-title-group">
-        <div class="project-title">Little Beach House Halloween</div>
-        <div class="project-subtitle">Event — Malibu / Los Angeles</div>
-      </div>
-      <div class="project-meta">Soho House</div>
-      <div class="project-expand-icon">+</div>
-    </div>
-    <div class="project-details">
-      <div class="carousel" onclick="event.stopPropagation()">
-        <div class="carousel-track">
-          <img src="photos/wild-west-ghost-town/01.avif" loading="lazy" alt="Wild West Ghost Town">
-        </div>
-        <button class="carousel-btn carousel-prev" onclick="carouselNav(this,-1)">&#8249;</button>
-        <button class="carousel-btn carousel-next" onclick="carouselNav(this,1)">&#8250;</button>
-        <div class="carousel-counter">1 / 1</div>
-      </div>
-      <div class="project-details-inner">
-        <div class="project-description">
-          Soho House asked Flux to realize their Wild West Ghost Town Saloon concept for the 2024 Halloween event at Little Beach House Malibu. For the one time a year when they allow members and guests to take photos, the goal was to transform the club with highly Instagrammable moments evoking the Wild West.
-          <div class="project-press">
-            <span>Role</span>
-            <em>Event Coordinator</em>
-          </div>
-        </div>
-        <div class="project-responsibilities">
-          <h4>Responsibilities</h4>
-          <ul>
-            <li>Worked on installation and strike of event production and decor</li>
-            <li>Installed signage, decor, and all client logistical needs</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- I LOVE MY DAD -->
-  <div class="project-card reveal" onclick="toggleProject(this)">
-    <div class="project-header">
-      <div class="project-title-group">
-        <div class="project-title">I Love My Dad</div>
-        <div class="project-subtitle">Premiere</div>
-      </div>
-      <div class="project-meta">Magnolia Pictures</div>
-      <div class="project-expand-icon">+</div>
-    </div>
-    <div class="project-details">
-      <div class="carousel" onclick="event.stopPropagation()">
-        <div class="carousel-track">
-          <div class="carousel-placeholder">Photos coming soon</div>
-        </div>
-      </div>
-      <div class="project-details-inner">
-        <div class="project-description">
-          Description coming soon.
-          <div class="project-press">
-            <span>Role</span>
-            <em>Event Coordinator</em>
-          </div>
-        </div>
-        <div class="project-responsibilities">
-          <h4>Responsibilities</h4>
-          <ul>
-            <li>Details coming soon</li>
-          </ul>
-          <div class="project-press">
-            <span>Press</span>
-            <em><a href="https://variety.com/2022/scene/news/james-morosini-i-love-my-dad-patton-oswalt-1235334794/" target="_blank">Variety</a></em> &middot;
-            <em><a href="https://www.hollywoodreporter.com/movies/movie-news/i-love-my-dad-cast-james-morosini-premiere-1235193799/" target="_blank">The Hollywood Reporter</a></em> &middot;
-            <em><a href="https://people.com/celebrity/star-tracks-friday-august-5-2022/" target="_blank">People</a></em> &middot;
-            <em><a href="https://hollywoodlife.com/pics/hottest-celebrity-pics-this-week-of-aug-8-14-billie-eilish-more/premiere-of-i-love-my-dad/" target="_blank">Hollywood Life</a></em>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- PRESENCE -->
-  <div class="project-card reveal" onclick="toggleProject(this)">
-    <div class="project-header">
-      <div class="project-title-group">
-        <div class="project-title">Presence</div>
-        <div class="project-subtitle">Creators Event — Los Angeles</div>
-      </div>
-      <div class="project-meta">NEON</div>
-      <div class="project-expand-icon">+</div>
-    </div>
-    <div class="project-details">
-      <div class="carousel" onclick="event.stopPropagation()">
-        <div class="carousel-track">
-          <div class="carousel-placeholder">Photos coming soon</div>
-        </div>
-      </div>
-      <div class="project-details-inner">
-        <div class="project-description">
-          Description coming soon.
-          <div class="project-press">
-            <span>Role</span>
-            <em>Event Coordinator</em>
-          </div>
-        </div>
-        <div class="project-responsibilities">
-          <h4>Responsibilities</h4>
-          <ul>
-            <li>Details coming soon</li>
-          </ul>
-          <div class="project-press">
-            <span>Press</span>
-            <em><a href="https://variety.com/2025/film/features/presence-special-screening-haunted-house-experience-1236284114/" target="_blank">Variety</a></em>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
 </div>
 
@@ -1652,6 +1678,36 @@ body {
 </div>
 
 <script>
+// Scroll to and open a project card from the featured scroll
+function scrollToProject(index) {
+  const cards = document.querySelectorAll('.projects:not(.more-projects) .project-card');
+  // For index 5 (Hell of a Summer), it's in the "more projects" section
+  let card;
+  if (index < cards.length) {
+    card = cards[index];
+  } else {
+    // Open more projects first, then find it
+    const moreSection = document.getElementById('more-projects');
+    const btn = document.querySelector('.more-projects-toggle');
+    if (!moreSection.classList.contains('visible')) {
+      moreSection.classList.add('visible');
+      btn.querySelector('span').textContent = 'View Less';
+      moreSection.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+      sessionStorage.setItem('moreProjectsOpen', true);
+    }
+    const moreCards = moreSection.querySelectorAll('.project-card');
+    card = moreCards[index - cards.length];
+  }
+  if (!card) return;
+  document.querySelectorAll('.project-card.open').forEach(c => c.classList.remove('open'));
+  card.classList.add('open');
+  card.classList.add('visible');
+  saveOpenState();
+  setTimeout(() => {
+    card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
+}
+
 function toggleProject(card) {
   const wasOpen = card.classList.contains('open');
   document.querySelectorAll('.project-card.open').forEach(c => c.classList.remove('open'));
