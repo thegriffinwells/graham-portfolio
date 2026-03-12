@@ -1074,7 +1074,7 @@ body {
         <span>Norms</span>
       </div>
     </div>
-    <div class="featured-scroll-item" onclick="scrollToProject(5)">
+    <div class="featured-scroll-item" onclick="scrollToProject(7)">
       <img src="photos/hell-of-a-summer/01.jpg" alt="Hell of a Summer" loading="lazy">
       <div class="featured-scroll-label">
         <strong>Hell of a Summer</strong>
@@ -1634,7 +1634,7 @@ body {
 // Scroll to and open a project card from the featured scroll
 function scrollToProject(index) {
   const cards = document.querySelectorAll('.projects:not(.more-projects) .project-card');
-  // For index 5 (Hell of a Summer), it's in the "more projects" section
+  // For index >= 6 (e.g. Hell of a Summer at 7), it's in the "more projects" section
   let card;
   if (index < cards.length) {
     card = cards[index];
