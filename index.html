@@ -1039,42 +1039,42 @@ body {
 
 <div class="featured-scroll reveal">
   <div class="featured-scroll-track">
-    <div class="featured-scroll-item" onclick="scrollToProject(0)">
+    <div class="featured-scroll-item" onclick="scrollToProject('card-the-seat')">
       <img src="photos/the-seat/03.jpg" alt="The Seat" loading="lazy">
       <div class="featured-scroll-label">
         <strong>The Seat</strong>
         <span>WhatsApp &times; Mercedes-AMG F1</span>
       </div>
     </div>
-    <div class="featured-scroll-item" onclick="scrollToProject(1)">
+    <div class="featured-scroll-item" onclick="scrollToProject('card-the-monkey')">
       <img src="photos/the-monkey/09.jpg" alt="The Monkey" loading="lazy">
       <div class="featured-scroll-label">
         <strong>The Monkey</strong>
         <span>NEON</span>
       </div>
     </div>
-    <div class="featured-scroll-item" onclick="scrollToProject(2)">
+    <div class="featured-scroll-item" onclick="scrollToProject('card-together')">
       <img src="photos/together/01.jpg" alt="Together" loading="lazy">
       <div class="featured-scroll-label">
         <strong>Together</strong>
         <span>NEON</span>
       </div>
     </div>
-    <div class="featured-scroll-item" onclick="scrollToProject(3)">
+    <div class="featured-scroll-item" onclick="scrollToProject('card-flux-festival')">
       <img src="photos/flux-festival/01.jpg" alt="Flux Festival" loading="lazy">
       <div class="featured-scroll-label">
         <strong>Flux Festival</strong>
         <span>Flux</span>
       </div>
     </div>
-    <div class="featured-scroll-item" onclick="scrollToProject(4)">
+    <div class="featured-scroll-item" onclick="scrollToProject('card-norms')">
       <img src="photos/norms-clubhouse/01.avif" alt="Norms Clubhouse" loading="lazy">
       <div class="featured-scroll-label">
         <strong>Norms Clubhouse</strong>
         <span>Norms</span>
       </div>
     </div>
-    <div class="featured-scroll-item" onclick="scrollToProject(7)">
+    <div class="featured-scroll-item" onclick="scrollToProject('card-hell-of-a-summer')">
       <img src="photos/hell-of-a-summer/01.jpg" alt="Hell of a Summer" loading="lazy">
       <div class="featured-scroll-label">
         <strong>Hell of a Summer</strong>
@@ -1087,7 +1087,7 @@ body {
 <div class="projects">
 
   <!-- THE SEAT -->
-  <div class="project-card reveal" onclick="toggleProject(this)">
+  <div id="card-the-seat" class="project-card reveal" onclick="toggleProject(this)">
     <div class="project-header">
       <div class="project-title-group">
         <div class="project-title">The Seat</div>
@@ -1181,7 +1181,7 @@ body {
   -->
 
   <!-- THE MONKEY PREMIERE -->
-  <div class="project-card reveal" onclick="toggleProject(this)">
+  <div id="card-the-monkey" class="project-card reveal" onclick="toggleProject(this)">
     <div class="project-header">
       <div class="project-title-group">
         <div class="project-title">The Monkey</div>
@@ -1239,7 +1239,7 @@ body {
   </div>
 
   <!-- TOGETHER -->
-  <div class="project-card reveal" onclick="toggleProject(this)">
+  <div id="card-together" class="project-card reveal" onclick="toggleProject(this)">
     <div class="project-header">
       <div class="project-title-group">
         <div class="project-title">Together</div>
@@ -1290,7 +1290,7 @@ body {
   </div>
 
   <!-- FLUX FESTIVAL -->
-  <div class="project-card reveal" onclick="toggleProject(this)">
+  <div id="card-flux-festival" class="project-card reveal" onclick="toggleProject(this)">
     <div class="project-header">
       <div class="project-title-group">
         <div class="project-title">Flux Festival</div>
@@ -1347,7 +1347,7 @@ body {
   </div>
 
   <!-- NORMS -->
-  <div class="project-card reveal" onclick="toggleProject(this)">
+  <div id="card-norms" class="project-card reveal" onclick="toggleProject(this)">
     <div class="project-header">
       <div class="project-title-group">
         <div class="project-title">Norms Clubhouse</div>
@@ -1457,7 +1457,7 @@ body {
 
 
   <!-- HELL OF A SUMMER -->
-  <div class="project-card reveal" onclick="toggleProject(this)">
+  <div id="card-hell-of-a-summer" class="project-card reveal" onclick="toggleProject(this)">
     <div class="project-header">
       <div class="project-title-group">
         <div class="project-title">Hell of a Summer</div>
@@ -1632,26 +1632,18 @@ body {
 
 <script>
 // Scroll to and open a project card from the featured scroll
-function scrollToProject(index) {
-  const cards = document.querySelectorAll('.projects:not(.more-projects) .project-card');
-  // For index >= 6 (e.g. Hell of a Summer at 7), it's in the "more projects" section
-  let card;
-  if (index < cards.length) {
-    card = cards[index];
-  } else {
-    // Open more projects first, then find it
-    const moreSection = document.getElementById('more-projects');
-    const btn = document.querySelector('.more-projects-toggle');
-    if (!moreSection.classList.contains('visible')) {
-      moreSection.classList.add('visible');
-      btn.querySelector('span').textContent = 'View Less';
-      moreSection.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-      sessionStorage.setItem('moreProjectsOpen', true);
-    }
-    const moreCards = moreSection.querySelectorAll('.project-card');
-    card = moreCards[index - cards.length];
-  }
+function scrollToProject(id) {
+  const card = document.getElementById(id);
   if (!card) return;
+  // If card is in the more-projects section, open it first
+  const moreSection = document.getElementById('more-projects');
+  if (moreSection && moreSection.contains(card) && !moreSection.classList.contains('visible')) {
+    const btn = document.querySelector('.more-projects-toggle');
+    moreSection.classList.add('visible');
+    btn.querySelector('span').textContent = 'View Less';
+    moreSection.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    sessionStorage.setItem('moreProjectsOpen', true);
+  }
   document.querySelectorAll('.project-card.open').forEach(c => c.classList.remove('open'));
   card.classList.add('open');
   card.classList.add('visible');
