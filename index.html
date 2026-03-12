@@ -348,7 +348,7 @@ body {
 
 /* ── SECTION HEADER ── */
 .section-header {
-  padding: clamp(60px, 10vh, 120px) clamp(24px, 5vw, 80px) clamp(30px, 5vh, 60px);
+  padding: clamp(30px, 4vh, 48px) clamp(24px, 5vw, 80px) clamp(30px, 5vh, 60px);
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -393,7 +393,7 @@ body {
 
 .featured-scroll-item {
   flex: 0 0 auto;
-  width: 320px;
+  width: clamp(320px, 28vw, 460px);
   position: relative;
   border-radius: 6px;
   overflow: hidden;
@@ -449,7 +449,7 @@ body {
 
 @media (max-width: 768px) {
   .featured-scroll-item {
-    width: 260px;
+    width: 300px;
   }
 }
 
