@@ -907,6 +907,19 @@ body {
   transform: translateY(0);
 }
 
+/* ── DESKTOP: smaller event carousels ── */
+@media (min-width: 769px) {
+  .carousel {
+    max-width: 65%;
+    margin: 0 auto;
+    padding: 0;
+  }
+  .carousel-track img,
+  .carousel-track .carousel-placeholder {
+    object-fit: cover;
+  }
+}
+
 /* ── TABLET ── */
 @media (max-width: 1024px) and (min-width: 769px) {
   .clients-list {
