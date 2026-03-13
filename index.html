@@ -909,17 +909,11 @@ body {
 
 /* ── DESKTOP: smaller event carousels ── */
 @media (min-width: 769px) {
-  .carousel {
-    max-height: 420px;
-  }
-  .carousel-track {
-    max-height: 420px;
-  }
   .carousel-track img,
   .carousel-track .carousel-placeholder {
-    object-fit: contain;
-    background: var(--bg);
-    max-height: 420px;
+    aspect-ratio: unset;
+    height: 420px;
+    object-fit: cover;
   }
 }
 
