@@ -1,5 +1,8 @@
 {
   "name": "graham-wells-portfolio",
   "version": "1.0.0",
-  "private": true
+  "private": true,
+  "scripts": {
+    "dev": "npx serve . -l 8080"
+  }
 }
