@@ -987,19 +987,21 @@ body {
   }
 
   .clients-list {
-    display: flex;
-    flex-wrap: wrap;
-    flex: none;
-    justify-content: center;
-    align-items: center;
-    gap: 20px 20px;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    row-gap: 32px;
     width: 100%;
-    max-width: 100%;
+    flex: none;
+    justify-items: center;
+    align-items: center;
   }
 
-  .client-logo {
-    flex-shrink: 1;
-    max-width: 100%;
+  .clients-list .client-logo {
+    grid-column: span 2;
+  }
+
+  .clients-list .client-logo:nth-last-child(-n+2) {
+    grid-column: span 3;
   }
 
 
