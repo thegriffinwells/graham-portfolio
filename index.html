@@ -1977,6 +1977,7 @@ function scrollToProject(id) {
   document.querySelectorAll('.project-card.open').forEach(c => c.classList.remove('open'));
   card.classList.add('open');
   card.classList.add('visible');
+  initCarouselsInCard(card);
   saveOpenState();
   setTimeout(() => {
     card.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1986,7 +1987,10 @@ function scrollToProject(id) {
 function toggleProject(card) {
   const wasOpen = card.classList.contains('open');
   document.querySelectorAll('.project-card.open').forEach(c => c.classList.remove('open'));
-  if (!wasOpen) card.classList.add('open');
+  if (!wasOpen) {
+    card.classList.add('open');
+    initCarouselsInCard(card);
+  }
   saveOpenState();
 }
 
@@ -2023,33 +2027,83 @@ function restoreOpenState() {
     const cards = document.querySelectorAll('.project-card');
     if (cards[openIndex]) {
       cards[openIndex].classList.add('open');
+      initCarouselsInCard(cards[openIndex]);
     }
   }
 }
 
-// Carousel navigation
+// Carousel navigation with infinite loop
 function carouselNav(btn, dir) {
   const carousel = btn.closest('.carousel');
   const track = carousel.querySelector('.carousel-track');
-  const items = track.querySelectorAll('img, .carousel-placeholder');
   const w = track.clientWidth;
-  const currentIndex = Math.round(track.scrollLeft / w);
-  let next = currentIndex + dir;
-  if (next < 0) next = items.length - 1;
-  if (next >= items.length) next = 0;
-  track.scrollTo({ left: next * w, behavior: 'smooth' });
+  track.scrollTo({ left: track.scrollLeft + dir * w, behavior: 'smooth' });
 }
 
-// Update carousel counters on scroll
+function initInfiniteCarousel(track) {
+  if (track.dataset.infinite || !track.clientWidth) return;
+  const items = Array.from(track.querySelectorAll('img, .carousel-placeholder'));
+  if (items.length <= 1) return;
+  track.dataset.infinite = 'true';
+  const count = items.length;
+  const lastClone = items[count - 1].cloneNode(true);
+  const firstClone = items[0].cloneNode(true);
+  lastClone.dataset.clone = 'true';
+  firstClone.dataset.clone = 'true';
+  track.insertBefore(lastClone, items[0]);
+  track.appendChild(firstClone);
+  track.scrollLeft = track.clientWidth;
+}
+
+function initCarouselsInCard(card) {
+  requestAnimationFrame(() => {
+    card.querySelectorAll('.carousel-track').forEach(track => initInfiniteCarousel(track));
+  });
+}
+
+// Update carousel counters on scroll + handle infinite loop wrap
 document.querySelectorAll('.carousel-track').forEach(track => {
+  // Counter updates continuously during scroll
   track.addEventListener('scroll', () => {
     const carousel = track.closest('.carousel');
     const counter = carousel.querySelector('.carousel-counter');
-    if (!counter) return;
-    const items = track.querySelectorAll('img, .carousel-placeholder');
-    const index = Math.round(track.scrollLeft / track.clientWidth) + 1;
-    counter.textContent = index + ' / ' + items.length;
+    const w = track.clientWidth;
+    if (!w) return;
+    const isInfinite = track.dataset.infinite === 'true';
+    const allItems = track.querySelectorAll('img, .carousel-placeholder');
+    const realCount = isInfinite ? allItems.length - 2 : allItems.length;
+    const rawIndex = Math.round(track.scrollLeft / w);
+    if (counter) {
+      const displayIndex = isInfinite
+        ? ((rawIndex - 1 + realCount) % realCount) + 1
+        : rawIndex + 1;
+      counter.textContent = displayIndex + ' / ' + realCount;
+    }
   });
+
+  // Wrap jump fires only after scroll animation fully settles
+  const doWrap = () => {
+    if (!track.dataset.infinite || track._jumping) return;
+    const w = track.clientWidth;
+    const pos = track.scrollLeft;
+    const realCount = track.querySelectorAll('img, .carousel-placeholder').length - 2;
+    if (pos < w * 0.5) {
+      track._jumping = true;
+      track.scrollLeft = realCount * w;
+      requestAnimationFrame(() => { track._jumping = false; });
+    } else if (pos > realCount * w + w * 0.5) {
+      track._jumping = true;
+      track.scrollLeft = w;
+      requestAnimationFrame(() => { track._jumping = false; });
+    }
+  };
+
+  if ('scrollend' in window) {
+    track.addEventListener('scrollend', doWrap);
+  } else {
+    let t;
+    track.addEventListener('scroll', () => { clearTimeout(t); t = setTimeout(doWrap, 80); });
+  }
 });
 
 // Scroll reveal
